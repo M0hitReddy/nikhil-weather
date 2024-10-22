@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://neondb_owner:5ZCGlweFMb1j@ep-cold-shape-a5amhhk8.us-east-2.aws.neon.tech/neondb"
+}
+
+model WeatherData {
+  id           Int      @id @default(autoincrement())
+  city         String
+  temperature  Float
+  feelsLike    Float
+  main         String
+  timestamp    DateTime @default(now())
+}
+
+model DailySummary {
+  id           Int      @id @default(autoincrement())
+  city         String
+  avgTemp      Float
+  minTemp      Float
+  maxTemp      Float
+  dominantCond String
+  date         DateTime
+}
