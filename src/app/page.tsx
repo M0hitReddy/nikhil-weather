@@ -1,19 +1,56 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/dbConnect";
 import Image from "next/image";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Chart } from "./components/ChartDemo";
 
-export default async function Home() {  
+export default function Home() {
   // const data = await prisma.weatherData.findMany();
-  const res  = await fetch(
-    `api.openweathermap.org/data/2.5/forecast/daily?lat={17.366}&lon=${78.476}&cnt=${2}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`);
-  const data = await res.json();
+
   // console.log(data);
   return (
     <>
-      <div className="container py-20 flex justify-center items-center m-auto">
-        <pre>
-          {JSON.stringify(data, null, 2)}
-        </pre>
+      <div className="container py-20 flex justify-center items-center m-auto w-full flex-col">
+        <Card className="w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
+          <CardHeader>
+            <CardTitle>City</CardTitle>
+            <CardDescription>Select a city for weather detals</CardDescription>
+          </CardHeader>
+          <CardContent className=" flex justify-center">
+            <Select>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select City" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="delhi">Delhi</SelectItem>
+                <SelectItem value="mumbai">Mumbai</SelectItem>
+                <SelectItem value="chennai">Chennai</SelectItem>
+                <SelectItem value="bangalore">Bangalore</SelectItem>
+                <SelectItem value="kolkata">Kolkata</SelectItem>
+                <SelectItem value="hyderabad">Hederabad</SelectItem>
+              </SelectContent>
+            </Select>
+          </CardContent>
+          <CardFooter className="mr-9 w-full flex justify-end">
+            <Button className="w-full">Get Weather</Button>
+          </CardFooter>
+        </Card>
+        {/* <Chart /> */}
       </div>
     </>
   );
